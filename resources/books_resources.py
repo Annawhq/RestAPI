@@ -95,7 +95,7 @@ class BookSearch(Resource):
     def get(self, search_text):
         session = db_session.create_session()
         result = session.query(Books).filter(Books.title.like('%'+search_text+'%')).all()
-        return jsonify({'Books': [item.to_dict(
+        return jsonify([item.to_dict(
             only=('author.firstname', 'author.lastname', 'publisher.namepublisher',
                   'publisher.address', 'publisher.site', 'title', 'code', 'yearpublish', 'countpage', 'hardcover',
-                  'abstract', 'status')) for item in result]})
+                  'abstract', 'status')) for item in result])
